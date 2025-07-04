@@ -1,0 +1,13 @@
+Terminal / Command Prompt
+- ls: list the directories and folders
+- cd [name of directory] (ex: cd Documents): to change the directory
+- mkdir [name of folder] (ex: mkdir Aya): to create a folder
+- flutter create [file name]: to create a flutter file
+    - cd again (example: cd myfirstapp) to run the app
+    - ls command again will allow you to see inside the app
+    - code . : will open the vscode
+
+Dart & Flutter
+Dart is the language
+- flutter run: command to run the flutter (folder)
+- dart run [file name]: to run dart (file)
