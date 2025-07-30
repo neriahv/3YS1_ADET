@@ -1,0 +1,112 @@
+import 'dart:io';
+
+// Abstract class (Abstraction)
+abstract class Pet {
+  String _name = '';
+  String _breed = '';
+  int _age = 0;
+
+  // Encapsulation with getters and setters
+  String get name => _name;
+  set name(String value) => _name = value;
+
+  String get breed => _breed;
+  set breed(String value) => _breed = value;
+
+  int get age => _age;
+  set age(int value) {
+    if (value >= 0) {
+      _age = value;
+    } else {
+      print("Age can't be negative!");
+    }
+  }
+
+  void makeSound(); // Abstract method
+
+  void describe() {
+    print("Name: $_name, Breed: $_breed, Age: $_age");
+  }
+}
+
+// Subclasses with built-in property assignment
+class Dog extends Pet {
+  Dog() {
+    _name = "Max";
+    _breed = "Dog";
+    _age = 3;
+  }
+
+  @override
+  void makeSound() {
+    print("$_name says: Woof! 🐶");
+  }
+}
+
+class Cat extends Pet {
+  Cat() {
+    _name = "Luna";
+    _breed = "Cat";
+    _age = 2;
+  }
+
+  @override
+  void makeSound() {
+    print("$_name says: Meow! 🐱");
+  }
+}
+
+class Bird extends Pet {
+  Bird() {
+    _name = "Kiwi";
+    _breed = "Bird";
+    _age = 1;
+  }
+
+  @override
+  void makeSound() {
+    print("$_name says: Tweet! 🐦");
+  }
+}
+
+void main() {
+  // Instances created with pre-assigned values
+  List<Pet> shelter = [
+    Dog(),
+    Cat(),
+    Bird(),
+  ];
+
+  for (Pet pet in shelter) {
+    pet.describe();
+    pet.makeSound();
+    print('');
+  }
+
+  // Interaction to rename a pet
+  stdout.write("Do you want to rename a pet? (yes/no): ");
+  String? answer = stdin.readLineSync();
+
+  while (answer?.toLowerCase() == 'yes') {
+    stdout.write("Enter the current name of the pet: ");
+    String? currentName = stdin.readLineSync();
+
+    Pet? selectedPet = shelter.firstWhere(
+      (pet) => pet.name.toLowerCase() == currentName?.toLowerCase(),
+      orElse: () => null,
+    );
+
+    if (selectedPet != null) {
+      stdout.write("Enter the new name: ");
+      String? newName = stdin.readLineSync();
+      selectedPet.name = newName ?? selectedPet.name;
+      print("Updated Info:");
+      selectedPet.describe();
+    } else {
+      print("Pet not found.");
+    }
+
+    stdout.write("Rename another pet? (yes/no): ");
+    answer = stdin.readLineSync();
+  }
+}
